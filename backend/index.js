@@ -14,6 +14,7 @@ app.use(
 app.use(express.json());
 
 app.use("/api/auth/", router);
+
 app.listen(port, () => {
   console.log(`Server Alive At Port : ${port}`);
 });
