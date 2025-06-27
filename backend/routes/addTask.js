@@ -1,22 +1,44 @@
-import todo from "../models/todoSchema.js"
-import express from "express"
+import todo from "../models/todoSchema.js";
+import express from "express";
+import authVerfication from "../middlewares/authVerfication.js";
+import user from "../models/user.js";
+import Joi from "joi";
 const router = express.Router();
 
-router.post("/create",async (req , res)=>{
-    const isExist = await todo.findOne({User : req.body.User})
-    const TaskN = await todo.findOne({Number : req.body.Number})
-    const UserId = isExist.findById()
-    if(!isExist){
-        res.status(403).json({message : "You Need Register First"})
-    }
-    const NewTask = new todo({
-        number: TaskN +1,
-        TaskName : req.body.TaskName,
-        User: UserId,
-    })
-   const save = await todo.save()
-   const {TaskName , Number , User} = save._Doc
-    res.status(201).json({
-        message: "Book Has Been Added",TaskName,Number,User
-    })
-})
+router.post("/create", authVerfication, async (req, res) => {
+  const AddRules = Joi.object({
+    TaskName: Joi.string().min(1).max(1000).required(),
+  });
+
+  const { error } = AddRules.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({
+      message: "Validation failed",
+      details: error.details[0].message,
+    });
+  }
+
+  const UserID = req.user.id;
+  const IsRegister = await user.findById(UserID);
+  if (!IsRegister) {
+    return res.status(400).json({ message: "User Dosent Exist" });
+  }
+  const TaskRegistered = await todo.findOne({
+    User: req.user.id,
+    TaskName: req.body.TaskName,
+  });
+
+  if (TaskRegistered) {
+    return res.status(400).json({ message: "This Task Alreday Registred" });
+  }
+
+  const NewTask = new todo({
+    TaskName: req.body.TaskName,
+    User: UserID,
+  });
+  await NewTask.save();
+  res.status(201).json({ message: "Task Added", NewTask });
+});
+
+export default router;
