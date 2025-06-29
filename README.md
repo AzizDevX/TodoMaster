@@ -4,10 +4,10 @@ A full-stack Todo application featuring robust authentication, secure task manag
 
 ## 🚀 Live Demo & Screenshots
 
-![Register/Login Page](./screenshots/img1.png)
+![Register/Login Page](./assets/img1.png)
 _Clean, Register Login interface_
 
-![Todo App Main Page](./screenshots/img2.png)
+![Todo App Main Page](./assets/img2.png)
 _Clean, intuitive dashboard interface_
 
 ## ✨ Key Features
@@ -114,8 +114,6 @@ AUTH/
 | ---------- | ----------------------- | ------- |
 | **React**  | UI Library              | ^18.0.0 |
 | **Vite**   | Build Tool & Dev Server | ^4.0.0  |
-| **CSS3**   | Styling & Animations    | Latest  |
-| **ESLint** | Code Linting            | ^8.0.0  |
 
 ## 🚀 Quick Start
 
@@ -156,7 +154,7 @@ AUTH/
 
    ```bash
    # Backend .env file
-   ConnectDb=mongodb://127.0.0.1:27017/auth
+   ConnectDb=mongodb://127.0.0.1:27017/TodoMaster
    JWT_SECRET=your-super-secret-jwt-key
    PORT=3001
    NODE_ENV=development
@@ -290,14 +288,12 @@ Content-Type: application/json
 ```bash
 # Backend tests
 cd backend
-npm test
+npm start
 
 # Frontend tests
 cd frontend
-npm test
+npm run dev
 
-# End-to-end tests
-npm run test:e2e
 ```
 
 ## 📈 Performance Optimizations
