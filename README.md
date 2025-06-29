@@ -47,7 +47,7 @@ _Clean, intuitive dashboard interface_
 ## 🏗️ Project Structure
 
 ```
-AUTH/
+TodoMaster/
 ├── backend/
 │   ├── config/
 │   │   └── DbConnection.js          # Database configuration
@@ -293,7 +293,6 @@ npm start
 # Frontend tests
 cd frontend
 npm run dev
-
 ```
 
 ## 📈 Performance Optimizations
