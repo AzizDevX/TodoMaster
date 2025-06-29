@@ -7,6 +7,12 @@ const todoSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 90,
   },
+
+  IsCompleted: {
+    type: Boolean,
+    required: true,
+  },
+
   User: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users",

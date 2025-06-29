@@ -9,7 +9,7 @@ router.get("/Tasks", authVerfication, async (req, res) => {
     const GetAllTasks = await todo.find({ User: userId });
 
     if (GetAllTasks.length === 0) {
-      return res.status(404).json({ message: "You Don't Have Any Tasks Yet" });
+      return res.status(200).json({ taskNames: [] });
     }
     const taskNames = GetAllTasks.map((task) => task.TaskName);
     res.status(200).json({ taskNames });

@@ -8,6 +8,7 @@ const router = express.Router();
 router.post("/create", authVerfication, async (req, res) => {
   const AddRules = Joi.object({
     TaskName: Joi.string().min(1).max(1000).required(),
+    IsCompleted: Joi.boolean().required(),
   });
 
   const { error } = AddRules.validate(req.body);
@@ -36,6 +37,7 @@ router.post("/create", authVerfication, async (req, res) => {
   const NewTask = new todo({
     TaskName: req.body.TaskName,
     User: UserID,
+    IsCompleted: false,
   });
   await NewTask.save();
   res.status(201).json({ message: "Task Added", NewTask });
