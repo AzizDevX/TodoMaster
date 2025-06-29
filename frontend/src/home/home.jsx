@@ -41,16 +41,12 @@ function HomePage() {
         },
       });
 
-      // Assuming the API returns both pending and completed tasks
-      // You might need to adjust this based on your actual API response structure
-      const allTasks = response.data.taskNames || [];
+      const allTasks = response.data.tasks || [];
+      const pending = allTasks.filter((task) => task.IsCompleted === false);
+      const completed = allTasks.filter((task) => task.IsCompleted === true);
 
-      // If your API separates completed and pending tasks, adjust accordingly
-      // For now, assuming taskNames contains pending tasks only
-      setTasks(allTasks);
-
-      // Fetch completed tasks (you might need a separate endpoint for this)
-      fetchCompletedTasks();
+      setTasks(pending.map((t) => t.TaskName));
+      setCompletedTasks(completed.map((t) => t.TaskName));
 
       setError(null);
     } catch (err) {
@@ -157,7 +153,7 @@ function HomePage() {
       } else if (err.response?.status === 401) {
         setError("Unauthorized. Please log in again.");
       } else if (err.response?.status === 400) {
-        setError("Invalid request. Please try again.");
+        setError(err?.response?.data?.message);
       } else {
         setError("Failed to edit task. Please try again.");
       }

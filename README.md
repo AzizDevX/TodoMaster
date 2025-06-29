@@ -150,7 +150,26 @@ TodoMaster/
    npm install
    ```
 
-4. **Environment Configuration**
+4. **Start MongoDB (if hosted locally)**
+
+# On Linux/macOS (default)
+
+sudo service mongod start
+
+# On macOS with Homebrew
+
+brew services start mongodb-community
+
+# On Windows (if installed as service)
+
+net start MongoDB
+Or: mongod
+
+# Or manually with data path
+
+mongod --dbpath /path/to/your/data/db
+
+5. **Environment Configuration**
 
    ```bash
    # Backend .env file
@@ -160,7 +179,7 @@ TodoMaster/
    NODE_ENV=development
    ```
 
-5. **Start the Application**
+6. **Start the Application**
 
    ```bash
    # Terminal 1 - Backend
@@ -172,7 +191,7 @@ TodoMaster/
    npm run dev
    ```
 
-6. **Access the Application**
+7. **Access the Application**
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:3001
 
@@ -217,7 +236,7 @@ _All these endpoints require Authorization header with Bearer token_
 #### Get All Tasks
 
 ```http
-GET /api/tasks
+GET /api/Tasks
 Authorization: Bearer <jwt_token>
 ```
 
@@ -226,7 +245,7 @@ _Displays all tasks on the home page_
 #### Create Task
 
 ```http
-POST /api/tasks/create
+POST /api/create
 Authorization: Bearer <jwt_token>
 Content-Type: application/json
 
@@ -238,7 +257,7 @@ Content-Type: application/json
 #### Edit Task
 
 ```http
-PUT /api/tasks/edit
+PUT /api/edit
 Authorization: Bearer <jwt_token>
 Content-Type: application/json
 
@@ -251,7 +270,7 @@ Content-Type: application/json
 #### Delete Task
 
 ```http
-DELETE /api/tasks/delete
+DELETE /api/delete
 Authorization: Bearer <jwt_token>
 Content-Type: application/json
 
@@ -263,7 +282,7 @@ Content-Type: application/json
 #### Mark Task as Completed
 
 ```http
-PUT /api/tasks/complete
+PUT api/mark
 Authorization: Bearer <jwt_token>
 Content-Type: application/json
 

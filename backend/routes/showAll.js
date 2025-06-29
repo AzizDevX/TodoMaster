@@ -11,8 +11,7 @@ router.get("/Tasks", authVerfication, async (req, res) => {
     if (GetAllTasks.length === 0) {
       return res.status(200).json({ taskNames: [] });
     }
-    const taskNames = GetAllTasks.map((task) => task.TaskName);
-    res.status(200).json({ taskNames });
+    res.status(200).json({ tasks: GetAllTasks });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server Error" });

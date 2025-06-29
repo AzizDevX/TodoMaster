@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/create", authVerfication, async (req, res) => {
   const AddRules = Joi.object({
     TaskName: Joi.string().min(1).max(1000).required(),
-    IsCompleted: Joi.boolean().required(),
+    IsCompleted: Joi.boolean().optional(),
   });
 
   const { error } = AddRules.validate(req.body);

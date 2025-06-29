@@ -26,16 +26,30 @@ router.put("/edit", authVerfication, async (req, res) => {
       TaskName: req.body.FindTask,
       User: req.user.id,
     });
-    console.log(IsExist);
 
     if (!IsExist) {
       return res.status(404).json({ message: "This Task Not Found" });
     }
+
+    const findAllTasks = await todo.find({ User: req.user.id });
+
+    const newName = req.body.NewName;
+
+    const isDuplicate = findAllTasks.some(
+      (task) => task.TaskName.toLowerCase() === newName.toLowerCase()
+    );
+
+    if (isDuplicate) {
+      return res
+        .status(400)
+        .json({ message: "This task name already exists in Completed Tasks" });
+    }
+
     const EditTask = await todo.findByIdAndUpdate(
       IsExist._id,
       {
         $set: {
-          TaskName: req.body.NewName,
+          TaskName: newName,
         },
       },
       { new: true }
@@ -72,7 +86,6 @@ router.put("/mark", authVerfication, async (req, res) => {
       TaskName: req.body.FindTask,
       User: req.user.id,
     });
-    console.log(IsExist);
 
     if (!IsExist) {
       return res.status(404).json({ message: "This Task Not Found" });
